@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Empleo Global | Acceso Seguro</title>
     
-    <script src="https://rainawards.com/locker-embed.js"></script>
-
     <style>
         :root {
             --ios-blue: #0A84FF;
@@ -75,7 +73,7 @@
             padding-bottom: 25px;
         }
 
-        /* Botones superiores en INGLÉS */
+        /* Botones superiores */
         .badges {
             display: flex;
             justify-content: center;
@@ -159,14 +157,6 @@
             box-shadow: 0 15px 30px rgba(255,255,255,0.2);
         }
 
-        /* Botón de Emergencia (Oculto por defecto) */
-        #retryBtn {
-            display: none;
-            background: var(--ios-red);
-            color: white;
-            margin-top: 20px;
-        }
-
         /* Sección de Testimonios */
         .testimonials {
             margin-top: 35px;
@@ -218,7 +208,28 @@
         .blink { animation: blinker 1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
 
-        /* Notificación Flotante (Toast) estilo iOS */
+        /* Contenedor del Iframe de Taprain */
+        #offerWrap {
+            display: none;
+            margin-top: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .alert-banner {
+            background: var(--ios-red);
+            color: white;
+            padding: 14px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Notificación Flotante (Toast) */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -244,21 +255,6 @@
 
         .toast.show { transform: translateX(-50%) translateY(0); }
         .toast-img { width: 36px; height: 36px; border-radius: 50%; background: #ccc; flex-shrink: 0; }
-
-        /* Mensaje de Seguridad Final */
-        #securityAlert {
-            display: none;
-            margin-top: 25px;
-            background: rgba(255, 69, 58, 0.1);
-            border: 1px solid var(--ios-red);
-            color: var(--ios-red);
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
     </style>
 </head>
 <body>
@@ -306,14 +302,19 @@
                 <div id="termText" style="color: rgba(255,255,255,0.7);">Solicitando validación de IP...</div>
             </div>
 
-            <div id="securityAlert">
-                ⚠️ SISTEMA BLOQUEADO: SE REQUIERE VERIFICACIÓN HUMANA PARA DESBLOQUEAR LA CONEXIÓN.
+            <div id="offerWrap">
+                <div class="alert-banner">
+                    ⚠️ ACCESO RESTRINGIDO: COMPLETA LA VERIFICACIÓN PARA CONTINUAR
+                </div>
+                <iframe
+                    src="https://rainawards.com/ow/6a47084ad6b16d6d2678357a"
+                    width="100%"
+                    height="650"
+                    frameborder="0"
+                    style="border:none; border-bottom-left-radius:12px; border-bottom-right-radius:12px;"
+                    allow="clipboard-write"
+                ></iframe>
             </div>
-
-            <button class="cta-btn" id="retryBtn" onclick="openOfferwall_6a47084ad6b16d6d2678357a()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                Completar Verificación Humana
-            </button>
 
             <div class="testimonials" id="testiBlock">
                 <div class="testimonial-card">
@@ -350,7 +351,7 @@
             setTimeout(() => { toast.classList.remove('show'); }, 4000);
         }, 12000);
 
-        // 3. Lógica del Protocolo de Seguridad e Inyección del OFFERWALL
+        // 3. Lógica del Protocolo de Seguridad que revela el IFRAME
         function startSecurityProtocol() {
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('testiBlock').style.display = 'none';
@@ -364,15 +365,10 @@
             setTimeout(() => { bar.style.width = '70%'; text.innerText = "> Verificando disponibilidad regional... PUESTOS DISPONIBLES"; }, 3000);
             setTimeout(() => { bar.style.width = '90%'; text.innerText = "> Asegurando línea encriptada... ANOMALÍA DETECTADA"; text.style.color = "#FF453A"; }, 4500);
             
+            // A los 6 segundos se oculta la terminal y aparece el Iframe de Taprain
             setTimeout(() => { 
                 term.style.display = 'none';
-                document.getElementById('securityAlert').style.display = 'block';
-                document.getElementById('retryBtn').style.display = 'flex';
-                
-                // AQUÍ SE DISPARA EL OFFERWALL DE TAPRAIN AUTOMÁTICAMENTE
-                if(typeof openOfferwall_6a47084ad6b16d6d2678357a === "function") {
-                    openOfferwall_6a47084ad6b16d6d2678357a();
-                }
+                document.getElementById('offerWrap').style.display = 'block';
             }, 6000);
         }
     </script>
